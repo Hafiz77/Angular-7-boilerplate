@@ -1,0 +1,35 @@
+
+<div class="container" style="text-align:center">
+  <div class="row">
+    <div>
+        <input class="form-control" [(ngModel)]="searchText" placeholder="search text goes here"><br><br>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Product</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let product of products | filter : searchText | paginate: config">
+                <th scope="row">{{product.id}}</th>
+                <td><a routerLink="/product/{{product.id}}">
+                  <span [appDynamicColor]="myColor" defaultValue="red">{{ product.name }} </span>
+                </a></td>
+              </tr>
+            </tbody>
+        </table>
+        <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+    </div>
+  </div>
+</div>
+
+<div>
+  <select [(ngModel)]="myColor">
+    <option value='' selected> Select Color </option>
+    <option *ngFor="let color of colors" [value]="color">
+      {{color}}
+    </option>
+  </select>
+  <p [appDynamicColor]="myColor" defaultValue="red"> dynamicColor Directive Demo</p>
+</div>
